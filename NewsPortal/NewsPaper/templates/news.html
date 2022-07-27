@@ -1,0 +1,33 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+News
+{% endblock title %}
+ 
+{% block content %}
+   <h1>All news</h1>
+   <h3>{{ time_now|date:'d M Y' }}</h3>
+   <h3>{{ news|length }} news</h3>
+   <hr>
+   {% if news %}
+       <table>
+           <tr>
+               <td>Title</td>
+               <td>Date</td>
+               <td>Text</td>
+           </tr>
+           {% for post in news %}
+           <tr>
+               <td>{{ post.name|wordsfilter }}</td>
+               <td>{{ post.time|date:'d M Y' }}</td>
+               <td>{{ post.text|truncatechars:20 }}</td>
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>No news to display</h2>
+   {% endif %}
+{% endblock content %}
